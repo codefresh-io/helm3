@@ -1,5 +1,5 @@
 package builder
 
-type builder interface {
+type Builder interface {
 	build() []string
 }

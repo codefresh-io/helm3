@@ -1,13 +1,13 @@
 package builder
 
 import (
-	main "github.com/codefresh-io/helm3/cmd"
+	ctx "github.com/codefresh-io/helm3/src/app/context"
 )
 
 type KubernetesCommandsBuilder struct {
 }
 
-func (commandBuilder KubernetesCommandsBuilder) build(context Context) []string {
+func (commandBuilder KubernetesCommandsBuilder) build(context ctx.Context) []string {
 	return []string{}
 }
 
