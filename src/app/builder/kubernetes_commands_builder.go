@@ -5,24 +5,26 @@ import (
 )
 
 type KubernetesCommandsBuilder struct {
+	context ctx.Context
 }
 
-func (commandBuilder KubernetesCommandsBuilder) build(context ctx.Context) []string {
-	return []string{}
-}
+func (commandBuilder KubernetesCommandsBuilder) Build() []string {
+	context := commandBuilder.context
+	lines := []string{}
 
-//
-//def _build_kubectl_commands(self):
-//lines = []
-//if self.action in ['install', 'promotion', 'auth']:
-//if self.kube_context is not None:
-//kubectl_cmd = 'kubectl config use-context "%s"' % self.kube_context
-//if self.dry_run:
-//kubectl_cmd = 'echo ' + kubectl_cmd
-//lines.append(kubectl_cmd)
-//
-//if self.kube_context is None and self.action != 'auth':
-//raise Exception(
-//'Must set KUBE_CONTEXT in environment (Name of Kubernetes cluster as named in Codefresh)')
-//
-//return lines
+	availableActions := map[string]bool{
+		"install":   true,
+		"promotion": true,
+		"auth":      true,
+	}
+	if availableActions[context.Action] {
+		if context.KubeContext != "" {
+			cmd := "kubectl config use-context " + context.KubeContext
+			if context.DryRun == true {
+				cmd = "echo " + cmd
+			}
+			lines = append(lines, cmd)
+		}
+	}
+	return lines
+}
