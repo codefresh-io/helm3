@@ -1,6 +1,7 @@
-package app
+package main
 
 import (
+	"fmt"
 	"github.com/codefresh-io/helm3/src/app/builder"
 	ctx "github.com/codefresh-io/helm3/src/app/context"
 	"os"
@@ -15,6 +16,7 @@ func main() {
 		KubeContext: os.Getenv("KUBE_CONTEXT"),
 		DryRun:      dryRun,
 	}
-	kubernetesCommandsBuilder := builder.KubernetesCommandsBuilder{context}
-	kubernetesCommandsBuilder.Build()
+	kubernetesCommandsBuilder := builder.KubernetesCommandsBuilder{Context: context}
+	lines := kubernetesCommandsBuilder.Build()
+	fmt.Printf("%v", lines)
 }

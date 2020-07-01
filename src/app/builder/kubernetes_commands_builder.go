@@ -5,11 +5,11 @@ import (
 )
 
 type KubernetesCommandsBuilder struct {
-	context ctx.Context
+	Context ctx.Context
 }
 
 func (commandBuilder KubernetesCommandsBuilder) Build() []string {
-	context := commandBuilder.context
+	context := commandBuilder.Context
 	lines := []string{}
 
 	availableActions := map[string]bool{
